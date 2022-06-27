@@ -1,10 +1,14 @@
-package com.example.simplegame;
+package object;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 
 import androidx.core.content.ContextCompat;
+
+import com.example.simplegame.GameLoop;
+import com.example.simplegame.Joystick;
+import com.example.simplegame.R;
+
+import object.Circle;
 
 /*
  * player is the main character of the game, which user can control with a
@@ -14,11 +18,9 @@ import androidx.core.content.ContextCompat;
 
 public class Player extends Circle {
 
-    private double radius;
     private double maxSpeed;
 
     private Joystick joystick;
-    private Paint paint;
 
     public Player(Context context, Joystick joystick, double radius, double maxSpeed, double positionX, double positionY){
         super(ContextCompat.getColor(context, R.color.player),radius, positionX, positionY);
@@ -29,7 +31,7 @@ public class Player extends Circle {
          * MAX_UPS from the gameLoop class in order to solve
          * slower-faster system speed gap
          */
-        this.maxSpeed = maxSpeed/GameLoop.MAX_UPS;
+        this.maxSpeed = maxSpeed/ GameLoop.MAX_UPS;
     }
 
     public void update() {
@@ -42,8 +44,4 @@ public class Player extends Circle {
         positionY += velocityY;
     }
 
-    public void setPosition(double positionX, double positionY) {
-        this.positionX = positionX;
-        this.positionY = positionY;
-    }
 }

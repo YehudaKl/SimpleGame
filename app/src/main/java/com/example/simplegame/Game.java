@@ -6,11 +6,12 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
+import object.Enemy;
+import object.Player;
 
 /**
  * Game maneges all objects in the game and is responsible for updating all states and render all objects to the screen
@@ -23,17 +24,26 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Joystick joystick;
     private final Enemy enemy;
 
+    // General settings
+    public final int MAX_UPS = 30;
+
     // Player settings
     private final int PLAYER_INITIAL_X = 500;
     private final int PLAYER_INITIAL_Y = 500;
     private final int PLAYER_RADIUS = 30;
     private final int PLAYER_MAX_SPEED = 400;
 
+    // Enemy settings
+    private final int ENEMY_RADIUS = 30;
+        // the factor is multiplied by the player max speed when specifying the max speed to the enemy
+    private final float ENEMY_SPEED_DECREASE_FACTOR = 0.6f;
+
     // Joystick settings
     private final int JOYSTICK_POSITION_X = 150;
     private final int JOYSTICK_POSITION_Y = 950;
     private final int JOYSTICK_OUTER_RADIUS = 70;
     private final int JOYSTICK_INNER_RADIUS = 40;
+
 
     public Game(Context context) {
         super(context);
@@ -46,7 +56,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         this.context = context;
         this.joystick = new Joystick(JOYSTICK_POSITION_X, JOYSTICK_POSITION_Y, JOYSTICK_OUTER_RADIUS, JOYSTICK_INNER_RADIUS);
         this.player = new Player(getContext(), joystick, PLAYER_RADIUS, PLAYER_MAX_SPEED, PLAYER_INITIAL_X, PLAYER_INITIAL_Y);
-        this.enemy = new Enemy();
+        this.enemy = new Enemy(getContext(), player, ENEMY_RADIUS, PLAYER_MAX_SPEED * ENEMY_SPEED_DECREASE_FACTOR, PLAYER_INITIAL_X + 100, PLAYER_INITIAL_Y + 200);
 
         setFocusable(true);
 
@@ -100,6 +110,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         player.draw(canvas);
         joystick.draw(canvas);
+        enemy.draw(canvas);
     }
 
     public void drawUPS(Canvas canvas){
@@ -128,5 +139,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         // Update the sate
         player.update();
         joystick.update();
+        enemy.update();
     }
 }
