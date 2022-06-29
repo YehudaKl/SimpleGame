@@ -1,14 +1,14 @@
-package object;
+package com.example.simplegame.object;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.simplegame.GameLoop;
 import com.example.simplegame.Joystick;
 import com.example.simplegame.R;
-
-import object.Circle;
+import com.example.simplegame.Utils;
 
 /*
  * player is the main character of the game, which user can control with a
@@ -18,7 +18,7 @@ import object.Circle;
 
 public class Player extends Circle {
 
-    private double maxSpeed;
+    private final double maxSpeed;
 
     private Joystick joystick;
 
@@ -35,6 +35,7 @@ public class Player extends Circle {
     }
 
     public void update() {
+
         // Update velocity based on actuator of joystick
         velocityX = joystick.getActuatorX() * maxSpeed;
         velocityY = joystick.getActuatorY() * maxSpeed;
@@ -42,6 +43,19 @@ public class Player extends Circle {
         //Update position
         positionX += velocityX;
         positionY += velocityY;
+
+        //Update direction
+        if(velocityX != 0 || velocityY != 0){
+            // Normalize the vector
+            double distance = Utils.getDistanceBetweenPoints(0, 0, velocityX, velocityY);
+            directionX = velocityX/distance;
+            directionY = velocityY/distance;
+        }
+
+
+
+
+
     }
 
 }

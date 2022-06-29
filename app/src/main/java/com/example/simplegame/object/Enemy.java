@@ -1,4 +1,4 @@
-package object;
+package com.example.simplegame.object;
 
 
 import android.content.Context;

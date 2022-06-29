@@ -10,4 +10,5 @@
     <color name="mangeta">#FF00FF</color>
     <color name="player">#00FF00</color>
     <color name="enemy">#FF0000</color>
+    <color name="spell">#FF8000</color>
 </resources>

@@ -1,4 +1,4 @@
-package object;
+package com.example.simplegame.object;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,7 +11,7 @@ public abstract class Circle extends GameObject {
     // Collision detection for circles
     public static boolean isColliding(Circle circle1 , Circle circle2) {
         double distance = distanceBetweenGameObjects(circle1, circle2);
-        return (distance < circle1.radius + circle2.radius) ;
+        return (distance < circle1.radius + circle2.radius);
     }
 
     public Circle(int color, double radius, double positionX, double positionY) {

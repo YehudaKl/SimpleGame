@@ -1,4 +1,4 @@
-package object;
+package com.example.simplegame.object;
 
 import android.graphics.Canvas;
 
@@ -8,6 +8,8 @@ public abstract class GameObject {
     protected double positionY;
     protected double velocityX;
     protected double velocityY;
+    protected double directionX;
+    protected double directionY;
 
     public GameObject(double positionX, double positionY){
         this.positionX = positionX;
@@ -15,6 +17,9 @@ public abstract class GameObject {
 
         this.velocityX = 0;
         this.velocityY = 0;
+
+        this.directionX = 1;
+        this.directionY = 0;
     }
 
     protected static double distanceBetweenGameObjects(GameObject obj1, GameObject obj2) {
@@ -30,6 +35,14 @@ public abstract class GameObject {
     public double getPositionY(){
         return positionY;
     }
+
+    public double getDirectionX(){
+        return directionX;
+    }
+    public double getDirectionY(){
+        return directionY;
+    }
+
     public void setPosition(double positionX, double positionY){
         this.positionX = positionX;
         this.positionY = positionY;
